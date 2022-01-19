@@ -27,6 +27,8 @@ HealtCheck::HealtCheck(QWidget *parent)
      ui -> stackedWidget-> insertWidget(2, &bmi);
      ui -> stackedWidget-> insertWidget(3, &diet);
       ui -> stackedWidget-> insertWidget(5, &kcal);
+        ui -> stackedWidget-> insertWidget(6, &exercises);
+
 
      connect(&whr, SIGNAL(HomeClicked()), this, SLOT(moveHome()));
 
@@ -36,6 +38,7 @@ HealtCheck::HealtCheck(QWidget *parent)
 
                 connect(&kcal, SIGNAL(HomeClicked()), this, SLOT(moveHome()));
 
+                     connect(&exercises, SIGNAL(HomeClicked()), this, SLOT(moveHome()));
 }
 
  //user code
@@ -182,5 +185,11 @@ void HealtCheck::on_actionRedo_triggered()
 void HealtCheck::on_pushButton_kcal_clicked()
 {
      ui->stackedWidget->setCurrentIndex(5);
+}
+
+
+void HealtCheck::on_pushButton_exercises_clicked()
+{
+    ui ->stackedWidget -> setCurrentIndex(6);
 }
 

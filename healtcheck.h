@@ -7,6 +7,7 @@
 #include <diet.h>
 #include <liczeniebmi.h>
 #include <kcal.h>
+#include <exercises.h>
 
 
 QT_BEGIN_NAMESPACE
@@ -51,6 +52,8 @@ private slots:
 
     void on_pushButton_kcal_clicked();
 
+    void on_pushButton_exercises_clicked();
+
 private:
     Ui::HealtCheck *ui;
 
@@ -58,6 +61,7 @@ private:
     Bmi bmi;
     Diet diet;
     Kcal kcal;
+    Exercises exercises;
 
     QString file_path_;
 };

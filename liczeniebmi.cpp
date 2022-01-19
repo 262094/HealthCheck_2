@@ -15,7 +15,7 @@
     {
 
         if((bmi<16)&&(bmi>=0))
-            QMessageBox::about(licz,"BMI", QString ("Your BMI: %1 Starvation! ").arg(bmi));
+             QMessageBox::about(licz,"BMI", QString ("Your BMI: %1 Starvation! ").arg(bmi));
          if((bmi<17)&&(bmi>=16))
              QMessageBox::about(licz,"BMI", QString ("Your BMI: %1 Emaciation!").arg(bmi));
          if((bmi<18.5)&&(bmi>=17))

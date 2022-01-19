@@ -30,6 +30,7 @@ liczeniekcal:: liczeniekcal(QString gender, QString activity, float height, floa
           QMessageBox::about(QDialog::find(0),"KCAL", QString ("You need %1 KCAL every day").arg(kcal_men*1.8f));
         if(activity== "6. Very hard physical work" )
           QMessageBox::about(QDialog::find(0),"KCAL", QString ("You need %1 KCAL every day").arg(kcal_men*2.0f));
+
     }
 
     if(gender== "WOMEN")
