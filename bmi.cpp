@@ -27,8 +27,12 @@ void Bmi::on_pushButton_calculate_bmi_clicked()
     float height = ui->lineEdit->text().toFloat();
     float weight = ui->lineEdit_2->text().toFloat();
 
-    setStyleSheet("QMessageBox{background:white;  border: none; font-family: Arial; font-style: normal;  font-size: 15pt; color: black ; }");
 
-   liczeniebmi(gender, height, weight);
+   liczeniebmi(gender, height, weight, id);
+}
 
+void Bmi::index(int index)
+{
+    id = index;
+    qDebug() << id;
 }

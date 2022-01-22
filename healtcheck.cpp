@@ -1,33 +1,40 @@
 #include "healtcheck.h"
 #include "ui_healtcheck.h"
 
-
 #include <QFile>
 #include <QFileDialog>
 #include <QTextStream>
 #include <QMessageBox>
 #include <QFontDialog>
+#include <QDialog>
 #include <QFont>
 #include <QColorDialog>
 #include <QColor>
-
-
 
 HealtCheck::HealtCheck(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::HealtCheck)
 {
-    ui->setupUi(this);
+     ui->setupUi(this);
+     ui -> menuBar ->setVisible(false);
 
 
+    mydb = QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("C:/Users/Łukasz/Desktop/mydb.db");
 
+    if(!mydb.open())
+    {
+        qDebug()<<"Failed to open the database" << mydb.lastError().text();
+    }
+
+    // logWindow = new Login(this);
 
 
      ui -> stackedWidget-> insertWidget(1, &whr);
-     ui -> stackedWidget-> insertWidget(2, &bmi);
+    ui -> stackedWidget-> insertWidget(2, &bmi);
      ui -> stackedWidget-> insertWidget(3, &diet);
-      ui -> stackedWidget-> insertWidget(5, &kcal);
-        ui -> stackedWidget-> insertWidget(6, &exercises);
+     ui -> stackedWidget-> insertWidget(5, &kcal);
+     ui -> stackedWidget-> insertWidget(6, &exercises);
 
 
      connect(&whr, SIGNAL(HomeClicked()), this, SLOT(moveHome()));
@@ -36,61 +43,75 @@ HealtCheck::HealtCheck(QWidget *parent)
 
             connect(&diet, SIGNAL(HomeClicked()), this, SLOT(moveHome()));
 
-                connect(&kcal, SIGNAL(HomeClicked()), this, SLOT(moveHome()));
+              connect(&kcal, SIGNAL(HomeClicked()), this, SLOT(moveHome()));
 
                      connect(&exercises, SIGNAL(HomeClicked()), this, SLOT(moveHome()));
+
+                   //     connect(logWindow, &Login::signalid, this, &HealtCheck::receiveId);
+
 }
 
  //user code
 
 
-
-
 HealtCheck::~HealtCheck()
 {
+    mydb.close();
     delete ui;
 }
 
+/*
+void HealtCheck::receiveId(int index)
+{
+    qDebug() << index;
+}
+
+*/
 
 void HealtCheck::on_pushButton_whr_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+    whr.index(index);
 }
 
 void HealtCheck::on_pushButton_bmi_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    bmi.index(index);
+
 }
+
 void HealtCheck::on_pushButton_diets_clicked()
 {
      ui->stackedWidget->setCurrentIndex(3);
+
 }
 
 
 void HealtCheck::moveHome()
 {
-      ui->stackedWidget->setCurrentIndex(0);
+      ui->stackedWidget->setCurrentIndex(7);
+
 }
-
-
-
 
 
 void HealtCheck::on_pushButton_athlets_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(4);
+     ui->stackedWidget->setCurrentIndex(8);
+
 }
 
 
 void HealtCheck::on_pushButton_back_to_menu_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(0);
+     ui->stackedWidget->setCurrentIndex(7);
+
 }
 
 
 void HealtCheck::on_actionNew_triggered()
 {
-     ui->stackedWidget->setCurrentIndex(4); //przenoszenie na index z athlets dietary
+     ui->stackedWidget->setCurrentIndex(8); //przenoszenie na index z athlets dietary
     file_path_ = "";
      ui->textEdit->setText("Podaj swoją wagę: \n"
                            "Podaj swój wzrost: \n"
@@ -115,7 +136,8 @@ void HealtCheck::on_actionOpen_triggered()
      QString text = in.readAll();
      ui->textEdit->setText(text);
      file.close();
-      ui->stackedWidget->setCurrentIndex(4); //przenoszenie na index z athlets dietary
+      ui->stackedWidget->setCurrentIndex(8);
+      //przenoszenie na index z athlets dietary
 }
 
 
@@ -149,6 +171,7 @@ void HealtCheck::on_actionSave_as_triggered()
      out << text;
      file.flush();
      file.close();
+
 }
 
 
@@ -185,11 +208,110 @@ void HealtCheck::on_actionRedo_triggered()
 void HealtCheck::on_pushButton_kcal_clicked()
 {
      ui->stackedWidget->setCurrentIndex(5);
+     kcal.index(index);
 }
 
 
 void HealtCheck::on_pushButton_exercises_clicked()
 {
     ui ->stackedWidget -> setCurrentIndex(6);
+}
+
+
+void HealtCheck::on_pushButton_login_clicked()
+{
+
+    QString username, password;
+    username=ui->lineEdit_username->text();
+    password=ui->lineEdit_password->text();
+
+    QSqlQuery qry;
+    qry.prepare("select * from users where username=:username and password=:password");
+    qry.bindValue(":username", username);
+    qry.bindValue(":password", password);
+
+    if(qry.exec())
+    {
+        while(qry.next())
+        {
+            count++;
+            index = qry.value(0).toInt();
+        }
+
+        if(count==1)
+        {
+            ui->label_6 ->setText("Correct username and password");
+            ui ->stackedWidget -> setCurrentIndex(7);
+            ui -> menuBar ->setVisible(true);
+
+        }
+
+        if(count>1)
+        {
+            ui->label_6 ->setText("User already exists");
+        }
+
+        if(count<1)
+            ui-> label_6->setText("Not correct username and password");
+    }
+
+
+
+}
+
+
+void HealtCheck::on_pushButton_back_to_login_clicked()
+{
+     ui ->stackedWidget -> setCurrentIndex(4);
+}
+
+
+void HealtCheck::on_pushButton_registery_clicked()
+{
+
+
+    bool check=true;
+    QString username, password;
+    username=ui->lineEdit_username_2->text();
+    password=ui->lineEdit_password_2->text();
+
+     QSqlQuery qry;
+
+     qry.prepare("select * from users where username=:username");
+     qry.bindValue(":username", username);
+
+     qry.exec();
+
+
+     while(qry.next())
+     {
+         QString usernamedb=qry.value(1).toString();
+         if(username==usernamedb)
+         {
+              QMessageBox::warning(this,"Ostrzeżenie", "Podany login i hasło istnieja");
+              check=false;
+         }
+
+
+     }
+
+     if(check)
+     {
+         qry.prepare("insert into users (username, password)" "VALUES (:username, :password)");
+                 qry.bindValue(":username", username);
+                 qry.bindValue(":password", password);
+                 qry.exec();
+                 ui->lineEdit_username_2->clear();
+                 ui->lineEdit_password_2->clear();
+                 ui->stackedWidget->setCurrentIndex(4);
+     }
+
+
+}
+
+
+void HealtCheck::on_pushButton_go_to_registery_clicked()
+{
+    ui ->stackedWidget -> setCurrentIndex(0);
 }
 

@@ -8,11 +8,11 @@
 class liczeniewhr
 {
 public:
-    liczeniewhr(QString gender, float wr, float hr);
+    liczeniewhr(QString gender, float wr, float hr, int index);
 
 private:
  Whr *licz2;
-
+ QSqlDatabase mydb;
 
 };
 

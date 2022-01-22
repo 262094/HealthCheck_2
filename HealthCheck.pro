@@ -1,6 +1,9 @@
-QT       += core gui
+QT       += core gui webenginecore webenginewidgets sql network
+
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 
 CONFIG += c++11
 
@@ -16,6 +19,7 @@ SOURCES += \
     liczeniebmi.cpp \
     liczeniekcal.cpp \
     liczeniewhr.cpp \
+    login.cpp \
     main.cpp \
     healtcheck.cpp \
     whr.cpp
@@ -29,6 +33,7 @@ HEADERS += \
     liczeniebmi.h \
     liczeniekcal.h \
     liczeniewhr.h \
+    login.h \
     whr.h
 
 FORMS += \
@@ -37,6 +42,7 @@ FORMS += \
     exercises.ui \
     healtcheck.ui \
     kcal.ui \
+    login.ui \
     whr.ui
 
 # Default rules for deployment.

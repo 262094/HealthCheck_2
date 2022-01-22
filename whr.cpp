@@ -27,7 +27,12 @@ void Whr::on_pushButton_calculate_clicked()
       float wr = ui->lineEdit->text().toFloat();
       float hr = ui->lineEdit_2->text().toFloat();
 
-      liczeniewhr (gender, wr, hr);
+      liczeniewhr (gender, wr, hr, id);
 
 }
 
+void Whr::index(int index)
+{
+    id = index;
+    qDebug() << id;
+}

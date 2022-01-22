@@ -9,11 +9,13 @@
 class liczeniebmi {
 
 public:
- liczeniebmi( QString gender, float height, float weight);
+ liczeniebmi( QString gender, float height, float weight, int index);
 
 private:
 
  Bmi *licz;
+ QSqlDatabase mydb;
+
 
 };
 

@@ -14,10 +14,11 @@ class Whr : public QWidget
 public:
     explicit Whr(QWidget *parent = nullptr);
     ~Whr();
-
+void index(int);
 
 private:
     Ui::Whr *ui;
+    int id;
 
 signals:
     void HomeClicked();

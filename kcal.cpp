@@ -30,8 +30,13 @@ void Kcal::on_pushButton_calculate_kcal_clicked()
      float age = ui->lineEdit_3->text().toFloat();
 
 
-     liczeniekcal(gender, activity, height,  weight, age);
+     liczeniekcal(gender, activity, height,  weight, age, id);
 
 
 }
 
+void Kcal::index(int index)
+{
+    id = index;
+    qDebug() << id;
+}

@@ -15,8 +15,12 @@ public:
     explicit Bmi(QWidget *parent = nullptr);
     ~Bmi();
 
+    void index(int);
+
 private:
     Ui::Bmi *ui;
+    int id;
+
 
 signals:
     void HomeClicked();

@@ -1,6 +1,6 @@
 #ifndef HEALTCHECK_H
 #define HEALTCHECK_H
-
+#include "login.h"
 #include <QMainWindow>
 #include <whr.h>
 #include <bmi.h>
@@ -8,6 +8,7 @@
 #include <liczeniebmi.h>
 #include <kcal.h>
 #include <exercises.h>
+
 
 
 QT_BEGIN_NAMESPACE
@@ -21,6 +22,9 @@ class HealtCheck : public QMainWindow
 public:
     HealtCheck(QWidget *parent = nullptr);
     ~HealtCheck();
+
+    int index;
+    int count=0;
 
 private slots:
     void on_pushButton_whr_clicked();
@@ -54,15 +58,30 @@ private slots:
 
     void on_pushButton_exercises_clicked();
 
+    void on_pushButton_login_clicked();
+
+
+
+    void on_pushButton_back_to_login_clicked();
+
+    void on_pushButton_registery_clicked();
+
+    void on_pushButton_go_to_registery_clicked();
+
+public slots:
+ //   void receiveId(int);
+
+
 private:
     Ui::HealtCheck *ui;
-
+    Login *logWindow{nullptr};
     Whr whr;
     Bmi bmi;
     Diet diet;
     Kcal kcal;
     Exercises exercises;
-
     QString file_path_;
+    QSqlDatabase mydb;
+
 };
 #endif // HEALTCHECK_H
