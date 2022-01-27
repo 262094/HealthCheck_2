@@ -10,6 +10,9 @@
 #include <QFont>
 #include <QColorDialog>
 #include <QColor>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
 
 HealtCheck::HealtCheck(QWidget *parent)
     : QMainWindow(parent)
@@ -27,7 +30,7 @@ HealtCheck::HealtCheck(QWidget *parent)
         qDebug()<<"Failed to open the database" << mydb.lastError().text();
     }
 
-    // logWindow = new Login(this);
+
 
 
      ui -> stackedWidget-> insertWidget(1, &whr);
@@ -47,7 +50,7 @@ HealtCheck::HealtCheck(QWidget *parent)
 
                      connect(&exercises, SIGNAL(HomeClicked()), this, SLOT(moveHome()));
 
-                   //     connect(logWindow, &Login::signalid, this, &HealtCheck::receiveId);
+
 
 }
 
@@ -60,13 +63,6 @@ HealtCheck::~HealtCheck()
     delete ui;
 }
 
-/*
-void HealtCheck::receiveId(int index)
-{
-    qDebug() << index;
-}
-
-*/
 
 void HealtCheck::on_pushButton_whr_clicked()
 {
@@ -109,17 +105,52 @@ void HealtCheck::on_pushButton_back_to_menu_clicked()
 }
 
 
+
+
 void HealtCheck::on_actionNew_triggered()
 {
-     ui->stackedWidget->setCurrentIndex(8); //przenoszenie na index z athlets dietary
+
+    ui->stackedWidget->setCurrentIndex(8); //przenoszenie na index z athlets dietary
+    QSqlQuery qry;
+    qry.prepare("select * from users where id=:id");
+    qry.bindValue(":id", index);
+
+    qry.exec();
+    qDebug() << qry.lastError();
+
+
+    while(qry.next())
+    {
+    float bmi, whr, kcal;
+    bmi=round(qry.value(5).toFloat());
+    whr=qry.value(4).toFloat();
+    kcal=round(qry.value(3).toFloat());
+    qDebug() << bmi << whr << kcal;
+
+    QString bmi1, whr1, kcal1;
+    bmi1.setNum(bmi);
+    whr1.setNum(whr);
+    kcal1.setNum(kcal);
+
+
+
+
     file_path_ = "";
-     ui->textEdit->setText("Podaj swoją wagę: \n"
+     ui->textEdit->setText("Podaj swoją wagę:  \n"
                            "Podaj swój wzrost: \n"
                            "Podaj swój wiek: \n"
                            "Podaj dietę którą stosujesz: \n"
-                           "Twoje bmi: \n"
-                           "Twoj wskaznik whr: \n"
+                           "Twoje bmi: "+bmi1+"\n"
+                           "Twoj wskaznik whr: "+whr1+"\n"
+                           "Twoje dzienne zapotrzebowanie kcal: "+kcal1+"\n"
+                           "Twoje uwagi: \n"
                            );
+
+    }
+
+
+
+
 }
 
 
@@ -245,12 +276,6 @@ void HealtCheck::on_pushButton_login_clicked()
             ui -> menuBar ->setVisible(true);
 
         }
-
-        if(count>1)
-        {
-            ui->label_6 ->setText("User already exists");
-        }
-
         if(count<1)
             ui-> label_6->setText("Not correct username and password");
     }
@@ -288,7 +313,7 @@ void HealtCheck::on_pushButton_registery_clicked()
          QString usernamedb=qry.value(1).toString();
          if(username==usernamedb)
          {
-              QMessageBox::warning(this,"Ostrzeżenie", "Podany login i hasło istnieja");
+              QMessageBox::warning(this,"Warning", "User already exists");
               check=false;
          }
 

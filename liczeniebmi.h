@@ -4,7 +4,8 @@
 #include <healtcheck.h>
 #include <QWidget>
 #include <QObject>
-
+#include <QSqlDatabase>
+#include <QSqlError>
 
 class liczeniebmi {
 

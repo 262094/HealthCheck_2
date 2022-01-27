@@ -19,9 +19,6 @@
 
 
 
-
-
-
      QSqlQuery qry;
      qry.prepare("update users set bmi=:bmi where id=:id");
      qry.bindValue(":id", index);

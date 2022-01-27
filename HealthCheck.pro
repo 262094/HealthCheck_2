@@ -19,7 +19,6 @@ SOURCES += \
     liczeniebmi.cpp \
     liczeniekcal.cpp \
     liczeniewhr.cpp \
-    login.cpp \
     main.cpp \
     healtcheck.cpp \
     whr.cpp
@@ -33,7 +32,6 @@ HEADERS += \
     liczeniebmi.h \
     liczeniekcal.h \
     liczeniewhr.h \
-    login.h \
     whr.h
 
 FORMS += \
@@ -42,7 +40,6 @@ FORMS += \
     exercises.ui \
     healtcheck.ui \
     kcal.ui \
-    login.ui \
     whr.ui
 
 # Default rules for deployment.

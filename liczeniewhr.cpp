@@ -15,18 +15,12 @@ liczeniewhr::liczeniewhr(QString gender, float wr, float hr, int index)
 
     float whr = round((wr/hr)*100)/100;
 
-
-
     QSqlQuery qry;
     qry.prepare("update users set whr=:whr where id=:id");
     qry.bindValue(":id", index);
     qry.bindValue(":whr", whr);
 
     qry.exec();
-
-
-
-
 
 
     if(gender== "MEN")

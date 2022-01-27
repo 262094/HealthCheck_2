@@ -34,14 +34,29 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>461</width>
-     <height>611</height>
+     <width>460</width>
+     <height>610</height>
     </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>460</width>
+     <height>610</height>
+    </size>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 57, 178, 255), stop:1 rgba(255, 255, 255, 255));</string>
    </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
    <widget class="QWidget" name="page">
+    <property name="maximumSize">
+     <size>
+      <width>460</width>
+      <height>610</height>
+     </size>
+    </property>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
@@ -171,7 +186,7 @@ font:italic 16pt &quot;Noto Serif Light&quot;;</string>
 font:italic 16pt &quot;Noto Serif Light&quot;;</string>
      </property>
      <property name="text">
-      <string>Full body film</string>
+      <string>Fat burning</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_6">
@@ -189,6 +204,62 @@ font:italic 16pt &quot;Noto Serif Light&quot;;</string>
      </property>
      <property name="text">
       <string>Stronger arm</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_2">
+    <property name="maximumSize">
+     <size>
+      <width>460</width>
+      <height>610</height>
+     </size>
+    </property>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>421</width>
+       <height>531</height>
+      </rect>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>460</width>
+       <height>610</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_back_to_menu_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>550</y>
+       <width>280</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>280</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>280</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:grey;
+font:italic 16pt &quot;Noto Serif Light&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Back to menu</string>
      </property>
     </widget>
    </widget>
